@@ -1,0 +1,52 @@
+﻿@model Project.ViewModels.DeleteProductViewModel;
+@{
+    ViewData["Title"] = @Model.Naam;
+}
+
+<h1 class="mt-5">Bent u zeker dat u '@ViewData["Title"]' wil verwijderen?</h1>
+
+<table class="table table-bordered table-striped mt-5">
+    <tr>
+        <td>@Html.DisplayNameFor(model => this.Model.ProductId)</td>
+        <td>@this.Model.ProductId</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayNameFor(model => this.Model.Naam)</td>
+        <td>@this.Model.Naam</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayNameFor(model => this.Model.InVoorraad)</td>
+        <td>@this.Model.InVoorraad</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayNameFor(model => this.Model.Type)</td>
+        <td>@this.Model.Type</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayNameFor(model => this.Model.CategorieId)</td>
+        <td>@this.Model.CategorieId</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayNameFor(model => this.Model.Beschrijving)</td>
+        <td>@this.Model.Beschrijving</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayNameFor(model => this.Model.Rating)</td>
+        <td>@this.Model.Rating</td>
+    </tr>   <tr>
+        <td>@Html.DisplayNameFor(model => this.Model.Afbeelding)</td>
+        <td>@this.Model.Afbeelding</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayNameFor(model => this.Model.Prijs)</td>
+        <td>@this.Model.Prijs</td>
+    </tr>
+</table>
+
+
+<form class="mt-5" asp-action="DeleteProduct">
+    <div class="form-group">
+        <input type="submit" value="Verwijderen" class="btn" style="background-color: cornflowerblue !important; color: white !important;" />
+        <a asp-action="Products" class="btn" style="background-color: cornflowerblue !important; color: white !important;">Terug</a>
+    </div>
+</form>

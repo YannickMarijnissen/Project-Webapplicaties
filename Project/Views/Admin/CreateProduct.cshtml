@@ -1,0 +1,63 @@
+﻿@model Project.ViewModels.CreateProductViewModel
+
+@{
+    ViewData["Title"] = "Product aanmaken";
+}
+
+
+<h1 class="mt-5">@ViewData["Title"]</h1>
+
+
+<form asp-action="CreateProduct" method="post">
+    <div class="row mt-5">
+        <div asp-validation-summary="ModelOnly" class="text-danger"/>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Naam" class="control-label">@Html.DisplayNameFor(model => this.Model.Naam)</label>
+                <input asp-for="Naam" class="form-control"/>
+                <span asp-validation-for="Naam" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InVoorraad" class="control-label">@Html.DisplayNameFor(model => this.Model.InVoorraad)</label>
+                <input asp-for="InVoorraad" class="form-control"/>
+                <span asp-validation-for="InVoorraad" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Type" class="control-label">@Html.DisplayNameFor(model => this.Model.Type)</label>
+                <input asp-for="Type" class="form-control"/>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategorieId" class="control-label">@Html.DisplayNameFor(model => this.Model.CategorieId)</label>
+                <input asp-for="CategorieId" class="form-control"/>
+                <span asp-validation-for="CategorieId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rating" class="control-label">@Html.DisplayNameFor(model => this.Model.Rating)</label>
+                <input asp-for="Rating" class="form-control" />
+                <span asp-validation-for="Rating" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Aanmaken" class="btn" style="background-color: cornflowerblue !important; color: white !important;" />
+                <a asp-action="Products" class="btn" style="background-color: cornflowerblue !important; color: white !important;">Terug</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Beschrijving" class="control-label">@Html.DisplayNameFor(model => this.Model.Beschrijving)</label>
+                <textarea asp-for="Beschrijving" class="form-control" rows="5"></textarea>
+                <span asp-validation-for="Beschrijving" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Afbeelding" class="control-label">@Html.DisplayNameFor(model => this.Model.Afbeelding)</label>
+                <input asp-for="Afbeelding" class="form-control"/>
+                <span asp-validation-for="Afbeelding" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Prijs" class="control-label">@Html.DisplayNameFor(model => this.Model.Prijs)</label>
+                <input asp-for="Prijs" class="form-control"/>
+                <span asp-validation-for="Prijs" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+</form>

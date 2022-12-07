@@ -1,0 +1,29 @@
+﻿@model Project.ViewModels.CategorieOverviewViewModel;
+@{
+    ViewData["Title"] = "Shop";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>Welkom op de shop pagina!</p>
+@foreach (var categorie in Model.Categories)
+{
+    <div class="card border-danger m-2" style="width: 18rem; height: 32rem; float: left;">
+        <img src="~/images/@categorie.Afbeelding" class="card-img-top" alt="@categorie.Afbeelding" style="height: 18rem; width: auto;">
+        <div class="card-body bg-primary">
+            <h5 class="card-title" style="color: white;">@categorie.Naam</h5>
+        </div>
+        <div class="card-footer bg-primary">
+            @if(categorie.CategorieId==1){
+            <a asp-controller="shop" asp-action="supplementen" class="btn btn-primary stretched-link">Details</a> 
+            }
+            @if (categorie.CategorieId == 2)
+            {
+                <a asp-controller="shop" asp-action="kleding" class="btn btn-primary stretched-link">Details</a>
+            }
+        </div>
+    </div>
+
+   
+}
+<div style="clear: both;" 
