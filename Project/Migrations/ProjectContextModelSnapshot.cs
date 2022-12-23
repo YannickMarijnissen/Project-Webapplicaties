@@ -18,6 +18,29 @@ namespace Project.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Project.Models.Cart", b =>
+                {
+                    b.Property<long>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Aantal")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CartId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Cart");
+                });
+
             modelBuilder.Entity("Project.Models.Categorie", b =>
                 {
                     b.Property<int>("CategorieId")
@@ -75,7 +98,27 @@ namespace Project.Migrations
 
                     b.HasKey("ProductId");
 
+                    b.HasIndex("CategorieId");
+
                     b.ToTable("Product");
+                });
+
+            modelBuilder.Entity("Project.Models.Cart", b =>
+                {
+                    b.HasOne("Project.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Project.Models.Product", b =>
+                {
+                    b.HasOne("Project.Models.Categorie", "Categorie")
+                        .WithMany("Product")
+                        .HasForeignKey("CategorieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

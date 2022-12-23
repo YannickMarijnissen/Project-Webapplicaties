@@ -1,80 +1,112 @@
-﻿@model Project.ViewModels.ShoppingOverviewViewModel;
+﻿@model Project.ViewModels.ShoppingCartOverviewViewModel;
+
 @{
     ViewData["Title"] = "Shop";
 }
 
 <h1>@ViewData["Title"]</h1>
 
-<section class="vh-100" style="background-color: #fdccbc;">
-    <div class="container h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col">
-                <p><span class="h2">Shopping Cart </span><span class="h4">(1 item in your cart)</span></p>
+<div ng-controller="CartController">
 
-                <div class="card mb-4">
-                    <div class="card-body p-4">
+    <div class="row">
+        <div class="col-xs-12 col-md-10 col-md-offset-1 table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th class="text-center">Price</th>
+                        <th class="text-center">Total</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- empty cart message -->
+                    @if (Model.Winkelmand.Count == 0)
+                    {
+                        <tr >
+                            <td class="tdCenter" colspan="4">
+                                Your cart is empty, Go do some shopping :-)
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                              
+                            </td>
+                            <td>
+                                <form class="mt-5" asp-controller="Shop" asp-action="Index" method="get">
+                                    <div class="form-group">
+                                        <input type="submit" value="Verder winkelen" class="btn" style="background-color: cornflowerblue !important; color: white !important;" />
+                                    </div>
+                                </form>
+                             
+                            </td>
+                        </tr>
+                    }
 
-                        <div class="row align-items-center">
-                            <div class="col-md-2">
-                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/1.webp"
-                                     class="img-fluid" alt="Generic placeholder image">
-                            </div>
-                            <div class="col-md-2 d-flex justify-content-center">
-                                <div>
-                                    <p class="small text-muted mb-4 pb-2">Name</p>
-                                    <p class="lead fw-normal mb-0">iPad Air</p>
-                                </div>
-                            </div>
-                            <div class="col-md-2 d-flex justify-content-center">
-                                <div>
-                                    <p class="small text-muted mb-4 pb-2">Color</p>
-                                    <p class="lead fw-normal mb-0">
-                                        <i class="fas fa-circle me-2" style="color: #fdd8d2;"></i>
-                                        pink rose
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-md-2 d-flex justify-content-center">
-                                <div>
-                                    <p class="small text-muted mb-4 pb-2">Quantity</p>
-                                    <p class="lead fw-normal mb-0">1</p>
-                                </div>
-                            </div>
-                            <div class="col-md-2 d-flex justify-content-center">
-                                <div>
-                                    <p class="small text-muted mb-4 pb-2">Price</p>
-                                    <p class="lead fw-normal mb-0">$799</p>
-                                </div>
-                            </div>
-                            <div class="col-md-2 d-flex justify-content-center">
-                                <div>
-                                    <p class="small text-muted mb-4 pb-2">Total</p>
-                                    <p class="lead fw-normal mb-0">$799</p>
-                                </div>
-                            </div>
-                        </div>
 
-                    </div>
-                </div>
 
-                <div class="card mb-5">
-                    <div class="card-body p-4">
+                    @if (Model.Winkelmand.Count != 0)
+                    {
+                        @foreach (var item in Model.Winkelmand)
+                        {
 
-                        <div class="float-end">
-                            <p class="mb-0 me-5 d-flex align-items-center">
-                                <span class="small text-muted me-2">Order total:</span> <span class="lead fw-normal">$799</span>
-                            </p>
-                        </div>
 
-                    </div>
-                </div>
 
-                <div class="d-flex justify-content-end">
-                    <button type="button" class="btn btn-light btn-lg me-2">Continue shopping</button>
-                    <button type="button" class="btn btn-primary btn-lg">Add to cart</button>
-                </div>
 
-            </div>
+                            <tr ng-repeat="item in Model.Winkelmand">
+                                <td class="col-sm-8 col-md-6">
+                                    <div class="media">
+                                        <div class="media-body">
+                                            <h4 class="media-heading"><a>item.Product.Naam</a></h4>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="col-sm-1 col-md-1" style="text-align: center">
+
+                                    <input type="number" class="form-control text-center" min="1" ng-model="item.Count" value="@item.Aantal" onkeydown="return false" ng-change="cart.changeQuantity(item.ProductId,item.Count)" />
+                                </td>
+                                <td class="col-sm-1 col-md-1 text-center"><strong>€item.Product.Prijs</strong></td>
+                                <td class="col-sm-1 col-md-1 text-center"><strong>item.TotaalPrijs</strong></td>
+                                <td class="col-sm-1 col-md-1">
+                                    <button type="button" class="btn btn-danger" ng-click="cart.deleteItem(item.ProductId,item)" title="Remove item">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                        </svg>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+
+
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><h3>Total</h3></td>
+                            <td class="text-right"><h3><strong>€{{cart.CartTotal}}</strong></h3></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <button type="button" class="btn btn-default" ng-disabled="cart.CartCount == 0" ng-click="cart.clearCart()" title="Clear Cart">
+                                <span class="glyphicon glyphicon-trash"></span>Clear Cart 
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" ng-disabled="cart.CartCount == 0" class="btn btn-success">
+                                Checkout
+                            </button>
+                        </td>
+                    </tr>}
+                </tbody>
+            </table>
         </div>
     </div>
-</section>

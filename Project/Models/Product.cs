@@ -30,5 +30,8 @@ namespace Project.Models
         public string Afbeelding { get; set; }
         [Required]
         public Decimal Prijs { get; set; }
+        public Categorie Categorie { get; set; }
+        
+
     }
 }

@@ -14,6 +14,7 @@ namespace Project.Models
         public string Naam { get; set; }
 
         public string Afbeelding { get; set; }
-        
+        public virtual List<Product> Product { get; set; }
+
     }
 }

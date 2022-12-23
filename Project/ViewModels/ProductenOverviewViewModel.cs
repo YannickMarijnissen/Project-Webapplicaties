@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace Project.ViewModels
 {
-    public class ShoppingOverviewViewModel
+    public class ProductenOverviewViewModel
     {
-        public List<Product> ShoppingCard { get; set; }
+        public List<Product> Producten { get; set; }
     }
 }

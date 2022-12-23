@@ -3,8 +3,9 @@ using System.Collections.Generic;
 
 namespace Project.ViewModels
 {
-    public class ProductenOverviewViewModel
+    public class ShoppingCartOverviewViewModel
     {
-        public List<Product> Producten { get; set; }
+        public List<Cart> Winkelmand { get; set; }
+      
     }
 }
