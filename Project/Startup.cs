@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Project.Areas.Identity.Data;
 using Project.Data;
 using System;
 using System.Collections.Generic;
@@ -28,6 +30,8 @@ namespace Project
             services.AddControllersWithViews();
             services.AddDbContext<ProjectContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("LocalDBConnection")));
+            services.AddDefaultIdentity<CustomUser>().AddEntityFrameworkStores<ProjectContext>();
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +52,8 @@ namespace Project
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -55,6 +61,8 @@ namespace Project
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
+
             });
         }
     }
