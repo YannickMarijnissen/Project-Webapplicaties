@@ -46,6 +46,15 @@ namespace Project.Controllers
             };
 
             return View(vm);
+        }public IActionResult Accesoires()
+        {
+
+            ProductenOverviewViewModel vm = new ProductenOverviewViewModel()
+            {
+                Producten = _context.Products.ToList()
+            };
+
+            return View(vm);
         }
         public IActionResult ProductDetails(int id)
         {
