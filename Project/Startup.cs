@@ -29,7 +29,7 @@ namespace Project
         {
             services.AddControllersWithViews();
             services.AddDbContext<ProjectContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("LocalDBConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("ProjectConnection")));
             services.AddDefaultIdentity<CustomUser>().AddRoles<IdentityRole>().AddEntityFrameworkStores<ProjectContext>();
             services.AddRazorPages();
         }

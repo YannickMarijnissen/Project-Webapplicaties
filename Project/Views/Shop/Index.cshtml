@@ -3,9 +3,7 @@
     ViewData["Title"] = "Shop";
 }
 
-<h1>@ViewData["Title"]</h1>
 
-<p>Welkom op de shop pagina!</p>
 @foreach (var categorie in Model.Categories)
 {
     <div class="card border-danger m-2" style="width: 18rem; height: 32rem; float: left;">
@@ -20,7 +18,7 @@
             @if (categorie.CategorieId == 2)
             {
                 <a asp-controller="shop" asp-action="kleding" class="btn btn-primary stretched-link">Winkelen</a>
-            }@if (categorie.Naam == "Accesoires")
+            }@if (categorie.CategorieId == 3)
             {
                 <a asp-controller="shop" asp-action="Accesoires" class="btn btn-primary stretched-link">Winkelen</a>
             }
